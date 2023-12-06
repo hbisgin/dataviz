@@ -1,0 +1,43 @@
+---
+title: "HW6"
+output: html_document
+date: '2022-03-25'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(lubridate)
+library(tidyr)
+```
+
+## HW1
+
+#Q1
+
+
+
+```{r cars}
+load('/Volumes/GoogleDrive/My Drive/DATA/house_prices.rda')
+
+head(house_prices)
+```
+
+
+```{r house index plot}
+ggplot(data=house_prices) + geom_line(aes(x=date, y=house_price_index), color='blue') + facet_wrap(~state) + 
+  ylab('house price index') +
+  scale_x_continuous(breaks = ymd(c("1980-01-01", "2000-01-01", "2020-01-01")), labels = c("'80", "'00", "'20"))
+```
+
+```{r reshape}
+house_prices%>%gather( measure, value, -date, -state, -house_price_perc) ->house2
+```
+
+```{r second house}
+ggplot(data=house2) + geom_line(aes(x=date, y=value, color=measure)) + facet_wrap(~state) + 
+  ylab('house price index') +
+  scale_x_continuous(breaks = ymd(c("1980-01-01", "2000-01-01", "2020-01-01")), labels = c("'80", "'00", "'20"))
+```
+
+
